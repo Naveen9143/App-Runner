@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Colorful Interactive Website</title>
+  <style>
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(-45deg, #ee7752, #23d5ab, #23a6d5, #ee7752);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    body.dark {
+      background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #0f2027);
+      color: #80ced6;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+      animation: pulse 2s infinite;
+      text-shadow: 0 0 10px rgba(255,255,255,0.7);
+    }
+
+    @keyframes pulse {
+      0%, 100% { text-shadow: 0 0 10px rgba(255,255,255,0.7); }
+      50% { text-shadow: 0 0 30px rgba(255,255,255,1); }
+    }
+
+    p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+
+    button {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid white;
+      border-radius: 25px;
+      padding: 0.75rem 2rem;
+      margin: 0 1rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    }
+
+    button:hover {
+      background: white;
+      color: #23a6d5;
+      border-color: #23a6d5;
+      box-shadow: 0 0 20px #23a6d5;
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      button { margin: 1rem 0; width: 80%; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to My Application, Deployed using App Runner</h1>
+  <p>Enjoy colorful animations and interactive buttons.</p>
+
+  <button id="alertBtn">Say Hello 👋</button>
+  <button id="themeBtn">Toggle Dark Theme 🌙</button>
+
+  <script>
+    const alertBtn = document.getElementById('alertBtn');
+    const themeBtn = document.getElementById('themeBtn');
+
+    alertBtn.addEventListener('click', () => {
+      showCustomAlert("Hello! Thanks for visiting this colorful site! 🎉");
+    });
+
+    themeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+    });
+
+    function showCustomAlert(msg) {
+      const modal = document.createElement('div');
+      modal.style.position = 'fixed';
+      modal.style.top = 0;
+      modal.style.left = 0;
+      modal.style.width = '100vw';
+      modal.style.height = '100vh';
+      modal.style.backgroundColor = 'rgba(0,0,0,0.6)';
+      modal.style.display = 'flex';
+      modal.style.justifyContent = 'center';
+      modal.style.alignItems = 'center';
+      modal.style.zIndex = 1000;
+
+      const box = document.createElement('div');
+      box.style.backgroundColor = 'white';
+      box.style.color = '#333';
+      box.style.padding = '2rem';
+      box.style.borderRadius = '12px';
+      box.style.boxShadow = '0 0 15px rgba(0,0,0,0.3)';
+      box.style.maxWidth = '90%';
+      box.style.textAlign = 'center';
+      box.style.fontSize = '1.25rem';
+      box.innerText = msg;
+
+      const closeBtn = document.createElement('button');
+      closeBtn.innerText = 'Close';
+      closeBtn.style.marginTop = '1.5rem';
+      closeBtn.style.padding = '0.5rem 1.5rem';
+      closeBtn.style.border = 'none';
+      closeBtn.style.backgroundColor = '#23a6d5';
+      closeBtn.style.color = 'white';
+      closeBtn.style.fontSize = '1rem';
+      closeBtn.style.borderRadius = '8px';
+      closeBtn.style.cursor = 'pointer';
+      closeBtn.addEventListener('click', () => document.body.removeChild(modal));
+
+      box.appendChild(closeBtn);
+      modal.appendChild(box);
+      document.body.appendChild(modal);
+    }
+  </script>
+</body>
+</html>
